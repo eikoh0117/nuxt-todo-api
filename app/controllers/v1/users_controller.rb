@@ -1,11 +1,11 @@
 class V1::UsersController < ApplicationController
   def index
     if params[:uid]
-      current_user = User.find_by(uid: params[:uid])
-      render current_user
+      @user = User.find_by(uid: params[:uid])
+      render json: @user
     else
-      users = User.all
-      render json: users
+      @users = User.all
+      render json: @users
     end
   end
 
@@ -20,6 +20,6 @@ class V1::UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:emial, :uid, :name)
+    params.require(:user).permit(:email, :uid, :name)
   end
 end
